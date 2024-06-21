@@ -1,4 +1,10 @@
-function interpolate(value, minValue, maxValue, minHexColor, maxHexColor, medHexColor = "") {
+function interpolate(value, conf) {
+	var minValue = "minValue" in conf ? conf.minValue : 0;
+	var maxValue = "maxValue" in conf ? conf.maxValue : 1000;
+	var minHexColor = "minHexColor" in conf ? conf.minHexColor : "#FFFFFF";
+	var medHexColor = "medHexColor" in conf ? conf.medHexColor : "";
+	var maxHexColor = "maxHexColor" in conf ? conf.maxHexColor : "#000000";
+	
 	// local helper functions
 	function getRValue(hexValue) {
 		return parseInt(hexValue.substring(1, 3), 16);

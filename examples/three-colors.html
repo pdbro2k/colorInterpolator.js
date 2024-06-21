@@ -19,14 +19,14 @@ for (var i = 175; i <= 750; i+=step) {
 	</script>
 	<script type="text/javascript" src="../resources/js/colorInterpolator.js"></script>
 	<script type="text/javascript">
-// set min/max colors
-var minHexColor = "#ff9999";
-var medHexColor = "#ffff99";
-var maxHexColor = "#99ff99";
-
-// set min/max values
-var minValue = 180;
-var maxValue = 720;
+// build conf
+var conf = {
+	"minValue": 180,
+	"maxValue": 720,
+	"minHexColor": "#ff9999",
+	"medHexColor": "#ffff99",
+	"maxHexColor": "#99ff99"
+}
 
 // get nodes
 var nodes = document.getElementById("wrapper").children;
@@ -34,8 +34,8 @@ var nodes = document.getElementById("wrapper").children;
 // interpolate
 for (var i=0; i < nodes.length; ++i) {
     var currentValue = parseInt(nodes[i].innerHTML);	
-	var currentColor = interpolate(currentValue, minValue, maxValue, minHexColor, maxHexColor, medHexColor);
-	nodes[i].style.cssText = "background-color: " + currentColor;
+	var currentColor = interpolate(currentValue, conf);
+	nodes[i].style.cssText = "background-color: " + currentColor + ";";
 }
 	</script>
 
