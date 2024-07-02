@@ -4,7 +4,7 @@ function interpolate(value, conf) {
 	const minHexColor = "minHexColor" in conf ? conf.minHexColor : "#FFFFFF";
 	const medHexColor = "medHexColor" in conf ? conf.medHexColor : "";
 	const maxHexColor = "maxHexColor" in conf ? conf.maxHexColor : "#000000";
-	
+
 	// local helper functions
 	function getRValue(hexValue) {
 		return parseInt(hexValue.substring(1, 3), 16);
@@ -25,12 +25,12 @@ function interpolate(value, conf) {
 		if (value >= maxValue) {
 			return maxColorValue;
 		}
-		return minColorValue + Math.floor((maxColorValue - minColorValue) * (value - minValue) / (maxValue - minValue))
+		return minColorValue + Math.round((maxColorValue - minColorValue) * (value - minValue) / (maxValue - minValue))
 	}
-	
+
 	// handle min-med-max interpolation
 	if (medHexColor !== "") {
-		const medValue = Math.floor((minValue + maxValue) / 2);
+		const medValue = (minValue + maxValue) / 2;
 		if (value <= medValue) {
 			const currentRValue = getInterpolatedValue(value, minValue, medValue, getRValue(minHexColor), getRValue(medHexColor));
 			const currentGValue = getInterpolatedValue(value, minValue, medValue, getGValue(minHexColor), getGValue(medHexColor));
@@ -42,11 +42,11 @@ function interpolate(value, conf) {
 		const currentBValue = getInterpolatedValue(value, medValue, maxValue, getBValue(medHexColor), getBValue(maxHexColor));
 		return "#" + getHex(currentRValue) + getHex(currentGValue) + getHex(currentBValue);
 	}
-	
+
 	// handle min-max interpolation
 	const currentRValue = getInterpolatedValue(value, minValue, maxValue, getRValue(minHexColor), getRValue(maxHexColor));
 	const currentGValue = getInterpolatedValue(value, minValue, maxValue, getGValue(minHexColor), getGValue(maxHexColor));
 	const currentBValue = getInterpolatedValue(value, minValue, maxValue, getBValue(minHexColor), getBValue(maxHexColor));
 	return "#" + getHex(currentRValue) + getHex(currentGValue) + getHex(currentBValue);
-	
+
 }
